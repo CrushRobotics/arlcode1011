@@ -38,7 +38,6 @@ public class Robot extends TimedRobot {
    private final LEDPattern m_scrollingRainbow =
    gradient.scrollAtAbsoluteSpeed(MetersPerSecond.of(.6), kLedSpacing);
 
-
   double deadzone = 0.2;	//variable for amount of deadzone
   
   private final CANBus kCANBus = new CANBus();
@@ -53,16 +52,15 @@ public class Robot extends TimedRobot {
   public final DutyCycleOut leftOut = new DutyCycleOut(0);
   public final DutyCycleOut rightOut = new DutyCycleOut(0);
 
-
   public int printCount = 0;
 
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
   private final XboxController joystick = new XboxController(0);
 
   @Override
   public void robotInit() {
+    int teamNumber = getTeamOrDefault(1011);
 
     var leftConfiguration = new TalonFXConfiguration();
     var rightConfiguration = new TalonFXConfiguration();
@@ -83,7 +81,6 @@ public class Robot extends TimedRobot {
     leftLeader.setSafetyEnabled(true);
     rightLeader.setSafetyEnabled(true);
 
-
     m_robotContainer = new RobotContainer();
 
     // Used to track usage of the KitBot code, please do not remove
@@ -95,17 +92,14 @@ public class Robot extends TimedRobot {
 
     m_Led.setData(m_LedBuffer);
     m_Led.start();
-
-
   }
-
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
 
-      m_scrollingRainbow.applyTo(m_LedBuffer);
-      m_Led.setData(m_LedBuffer);
+    m_scrollingRainbow.applyTo(m_LedBuffer);
+    m_Led.setData(m_LedBuffer);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
